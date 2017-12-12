@@ -9,11 +9,8 @@ class Backpack
     @items
   end
 
-  def prepare
+  def weather
     weather = @attributes[:weather]
-    day_of_week = @attributes[:day_of_week]
-
-    # Ensure appropriate clothing is added to backpack
     if weather == 'rainy'
       @items << 'pants'
       @items << 'shirt'
@@ -26,19 +23,35 @@ class Backpack
       @items << 'pants'
       @items << 'shirt'
     end
+  end
 
-    # Ensure gym shoes are added to backpack if it's a gym day
+  def gym_shoes
+    day_of_week = @attributes[:day_of_week]
     if day_of_week == 'monday' || day_of_week == 'thursday'
       #add gym shoes to items
       @items << 'gym shoes'
     end
+  end
 
-    # Bring a packed lunch on all weekdays
+  def pack_lunch
+    day_of_week = @attributes[:day_of_week]
     if day_of_week != 'saturday' && day_of_week != 'sunday'
       @items << 'packed lunch'
     elsif false
       @items << 'snacks'
     end
+  end
+
+  def prepare
+
+    # Ensure appropriate clothing is added to backpack
+    weather
+
+    # Ensure gym shoes are added to backpack if it's a gym day
+    gym_shoes
+
+    # Bring a packed lunch on all weekdays
+    pack_lunch
   end
 
   # Prints a summary packing list for Melinda's backpack
